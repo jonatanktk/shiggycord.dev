@@ -11,7 +11,7 @@
   "links": {
     "github_page": "https://github.com/kmmiio99o/ShiggyPage",
     "github_project": "https://github.com/kmmiio99o/ShiggyCord",
-    "discord": "https://discord.gg/nQykFF9Ud6"
+    "discord": "https://discord.shiggycord.dev"
   },
   "navigation": [
     { "text": "Home", "href": "/" },
@@ -33,7 +33,7 @@
         "title": "Community",
         "links": [
           { "label": "Contribute", "to": "/contribute" },
-          { "label": "Support", "href": "https://discord.gg/nQykFF9Ud6" }
+          { "label": "Support", "href": "https://discord.shiggycord.dev" }
         ]
       }
     ],
