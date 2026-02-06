@@ -109,30 +109,34 @@ export const InstallPage: React.FC = () => {
   );
 
   const tabsConfig = useMemo(
-    () => [
-      {
-        icon: <PhoneAndroid sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-        label: installData.tabs.non_root.label,
-        type: installData.tabs.non_root.type,
-      },
-      {
-        icon: <Terminal sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-        label: installData.tabs.root.label,
-        type: installData.tabs.root.type,
-      },
-      {
-        icon: <Apple sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-        label: installData.tabs.ios.label,
-        type: installData.tabs.ios.type,
-      },
-      {
-        icon: <Laptop sx={{ fontSize: { xs: 20, sm: 24 } }} />,
-        label: installData.tabs.pc.label,
-        type: installData.tabs.pc.type,
-        hidden: { xs: true, md: false },
-      },
-    ],
-    [],
+    () => {
+      const { isIOS, isAndroid } = deviceDetection;
+      const isMobile = isIOS || isAndroid;
+      
+      return [
+        {
+          icon: <PhoneAndroid sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+          label: installData.tabs.non_root.label,
+          type: installData.tabs.non_root.type,
+        },
+        {
+          icon: <Terminal sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+          label: installData.tabs.root.label,
+          type: installData.tabs.root.type,
+        },
+        {
+          icon: <Apple sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+          label: installData.tabs.ios.label,
+          type: installData.tabs.ios.type,
+        },
+        ...(isMobile ? [] : [{
+          icon: <Laptop sx={{ fontSize: { xs: 20, sm: 24 } }} />,
+          label: installData.tabs.pc.label,
+          type: installData.tabs.pc.type,
+        }]),
+      ];
+    },
+    [deviceDetection],
   );
 
   const activeTabContent = useMemo(() => {
@@ -236,7 +240,6 @@ export const InstallPage: React.FC = () => {
                   sx={{
                     borderRadius: "100px",
                     minHeight: 64,
-                    ...tab.hidden,
                   }}
                 />
               ))}
