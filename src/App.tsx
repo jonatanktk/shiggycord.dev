@@ -59,7 +59,6 @@ export const App: React.FC = () => {
     [showSkip, handleSkipLoading, skipButtonStyle],
   );
 
-  // Loading effect with optimized image loading
   useEffect(() => {
     let isMounted = true;
     const skipTimer = setTimeout(() => {

@@ -8,6 +8,8 @@ import {
   alpha,
   IconButton,
   useMediaQuery,
+  CircularProgress,
+  Fade,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { DesktopNav } from "./DesktopNav";
@@ -18,6 +20,7 @@ export const Header: React.FC = () => {
   const location = useLocation();
   const activePath = location.pathname;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isLogoLoaded, setIsLogoLoaded] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -157,13 +160,53 @@ export const Header: React.FC = () => {
         <Container maxWidth="lg">
           <Toolbar sx={toolbarStyle}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Box sx={logoBoxStyle}>
-                <Box
-                  component="img"
-                  src={content.brand.logoUrl}
-                  alt={`${content.brand.name} Logo`}
-                  sx={logoImageStyle}
-                />
+              <Box sx={{ ...logoBoxStyle, position: "relative" }}>
+                {/* Logo Loading Animation */}
+                {!isLogoLoaded && (
+                  <Fade in={!isLogoLoaded} timeout={300}>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        bgcolor: alpha(theme.palette.background.paper, 0.7),
+                        borderRadius: "12px",
+                        zIndex: 1,
+                      }}
+                    >
+                      <CircularProgress
+                        size={20}
+                        thickness={3}
+                        sx={{
+                          color: theme.palette.primary.main,
+                          animation: "pulse 1.5s ease-in-out infinite",
+                          "@keyframes pulse": {
+                            "0%, 100%": { opacity: 1 },
+                            "50%": { opacity: 0.5 },
+                          },
+                        }}
+                      />
+                    </Box>
+                  </Fade>
+                )}
+                <Fade in={isLogoLoaded} timeout={500}>
+                  <Box
+                    component="img"
+                    src={content.brand.logoUrl}
+                    alt={`${content.brand.name} Logo`}
+                    onLoad={() => setIsLogoLoaded(true)}
+                    sx={{
+                      ...logoImageStyle,
+                      opacity: isLogoLoaded ? 1 : 0,
+                      transition: "opacity 0.3s ease",
+                    }}
+                  />
+                </Fade>
               </Box>
 
               <Box component="span" sx={brandNameStyle}>
