@@ -134,7 +134,7 @@ export const App: React.FC = () => {
         <Route path="/install" element={<InstallPage />} />
         <Route path="/build" element={<BuildPage />} />
         <Route path="/contribute" element={<ContributePage />} />
-        <Route path="/FAQ" element={<FAQPage />} />
+        <Route path="/faq" element={<FAQPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
